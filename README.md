@@ -1,35 +1,7 @@
 # Museomics
-Code for analysing 16S data from frozen museum specimens
+Code for analysing 16S data from frozen museum specimens using QIIME2 and the dada2 plugin. 
 
 # Import fastq files
-
-#forward reads only 
-
-qiime tools import \
-  --type 'SampleData[SequencesWithQuality]' \
-  --input-path AGRF_CAGRF220711473_KHP2R_custom/demultiplexed \
-  --input-format CasavaOneEightSingleLanePerSampleDirFmt \
-  --output-path demux-single-end.qza
-  
-qiime demux summarize \
-  --i-data demux-single-end.qza \
-  --o-visualization demux-single-end.qzv
-
-qiime tools view demux-single-end.qzv
-
-qiime quality-filter q-score --i-demux demux-single-end.qza --o-filtered-sequences demux-filtered.qza --o-filter-stats demux-filter-stats.qza
-
-qiime dada2 denoise-single \
---i-demultiplexed-seqs demux-filtered.qza \
---p-trim-left 10 \
---p-trunc-len 245 \
---o-representative-sequences rep-seqs.qza \
---o-table table.qza \
---o-denoising-stats stats-dada2.qza
-
-
-
-
 
 #paired end 
 
@@ -38,7 +10,6 @@ qiime tools import \
   --input-path test \
   --output-path paired-end-demux.qza \
   --input-format PairedEndFastqManifestPhred33V2
-
 
 
 qiime tools import \
